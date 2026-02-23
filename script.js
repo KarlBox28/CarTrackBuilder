@@ -2,6 +2,7 @@
 let mrizka = [];
 let selectedTexture = "grass";
 
+IncializujPaletu();
 PripravMrizku();
 console.log(mrizka);
 VykresliPolicka();
@@ -49,13 +50,13 @@ function VykresliPolicka() {
 }
 
 function IncializujPaletu() {
-    let paleta = document.querySelectorAll("#main-header ul li");
-    paleta.addEventListener("click", (e) => {
-    if (e.target.dataset.texture) {
-        selectedTexture = e.target.dataset.texture;
-        console.log("Vybraný nástroj:", selectedTexture);
-    }
-});
+    let paleta = document.querySelectorAll("#main-header ul li button");
+    paleta.forEach(element => {
+        element.addEventListener("click", () => {
+            selectedTexture = element.dataset.texture;
+            console.log("Vybráno: " + selectedTexture);
+        });
+    });
 }
 
 function cellClick(cellObj) {
