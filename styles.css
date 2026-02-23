@@ -6,6 +6,20 @@
     aspect-ratio: 1/1;
     margin: auto;
 }
+#main-header ul {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    list-style: none;
+}
+#main-header ul li {
+    width: 50px;
+    height: 50px;
+
+}
+#main-header ul li button {
+    width: 100%;
+    height: 100%;
+}
 
 .cell {
     background-color: rgba(255,0,0,0.3);

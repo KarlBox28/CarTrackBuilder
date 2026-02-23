@@ -1,7 +1,8 @@
 //pole ŘÁDKŮ a v řádcích prvky
 let mrizka = [];
+let selectedTexture = "grass";
 
-
+IncializujPaletu();
 PripravMrizku();
 console.log(mrizka);
 VykresliPolicka();
@@ -17,9 +18,10 @@ function PripravMrizku() {
             let newEl = document.createElement("div");
             newEl.classList.add("cell");
             newEl.classList.add("grass");
+            /*
             let txt = document.createElement("span");
             txt.innerHTML = `I'm on line ${i+1}, column ${j+1}`
-            newEl.append(txt);
+            newEl.append(txt); */
             mrizka[i][j] = {
                 element: newEl,
                 texture: "grass",
@@ -48,8 +50,23 @@ function VykresliPolicka() {
     }
 }
 
+function IncializujPaletu() {
+    let paleta = document.querySelectorAll("#main-header ul li button");
+    paleta.forEach(element => {
+        element.addEventListener("click", () => {
+            selectedTexture = element.dataset.texture;
+            console.log("Vybráno: " + selectedTexture);
+        });
+    });
+}
+
 function cellClick(cellObj) {
     //console.log(`Clicked on line ${cellObj.row}, column ${cellObj.column}`);
+
+    cellObj.element.className = "cell";
+    cellObj.element.classList.add(selectedTexture);
+
+    /*
     switch (cellObj.texture) {
         case "grass":
             cellObj.element.classList.remove("grass");
@@ -66,6 +83,6 @@ function cellClick(cellObj) {
             cellObj.element.classList.add("grass");
             cellObj.texture = "grass";
             break;
-    }
+    }*/
 
 } 
