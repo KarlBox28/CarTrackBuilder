@@ -16,8 +16,14 @@ function PripravMrizku() {
     for (let i = 0; i < 20; i++) {
         for (let j = 0; j < 20; j++) {
             let newEl = document.createElement("div");
+            let terrainEl = document.createElement("div");
+            terrainEl.classList.add("terrain");
+            terrainEl.classList.add("grass");
+            let trackEl = document.createElement("div");
+            trackEl.classList.add("track");
+            newEl.append(terrainEl);
+            newEl.append(trackEl);
             newEl.classList.add("cell");
-            newEl.classList.add("grass");
             /*
             let txt = document.createElement("span");
             txt.innerHTML = `I'm on line ${i+1}, column ${j+1}`
@@ -63,8 +69,7 @@ function IncializujPaletu() {
 function cellClick(cellObj) {
     //console.log(`Clicked on line ${cellObj.row}, column ${cellObj.column}`);
 
-    cellObj.element.className = "cell";
-    cellObj.element.classList.add(selectedTexture);
+    
 
     /*
     switch (cellObj.texture) {

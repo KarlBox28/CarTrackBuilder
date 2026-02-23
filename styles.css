@@ -22,16 +22,57 @@
 }
 
 .cell {
-    background-color: rgba(255,0,0,0.3);
-    border: 1px green solid;
+    border: 1px grey solid;
+    position: relative;
+    width: 50px;
+    height: 50px;
 }
 
-.road {
+.cell > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+}
+
+.terrain { 
+    z-index: 1; 
+}
+
+.track { 
+    z-index: 2;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+ }
+
+.terrain.road {
     background-color: darkgrey;
 }
-.grass {
+.terrain.grass {
     background-color: greenyellow;
 }
-.water {
+.terrain.water {
     background-color: aqua;
 }
+.terrain.sand {
+    background-color: yellow;
+}
+
+/* Junctions */
+.track.junction-3-D { background-image: url('sprites/junction-3-D.png'); }
+.track.junction-3-L { background-image: url('sprites/junction-3-L.png'); }
+.track.junction-3-R { background-image: url('sprites/junction-3-R.png'); }
+.track.junction-3-U { background-image: url('sprites/junction-3-U.png'); }
+.track.junction-4   { background-image: url('sprites/junction-4.png'); }
+
+/* Straight tracks */
+.track.straight-LR { background-image: url('sprites/straight-LR.png'); }
+.track.straight-UD { background-image: url('sprites/straight-UD.png'); }
+
+/* Turns */
+.track.turn-L-D { background-image: url('sprites/turn-L-D.png'); }
+.track.turn-L-U { background-image: url('sprites/turn-L-U.png'); }
+.track.turn-R-D { background-image: url('sprites/turn-R-D.png'); }
+.track.turn-R-U { background-image: url('sprites/turn-R-U.png'); }
