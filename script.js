@@ -19,7 +19,11 @@ function PripravMrizku() {
             let txt = document.createElement("span");
             txt.innerHTML = `I'm on line ${i+1}, column ${j+1}`
             newEl.append(txt);
-            mrizka[i][j] = newEl;
+            mrizka[i][j] = {
+                element: newEl,
+                texture: "none",
+                texture_variant: "none"
+            };
         } 
     }
 }
@@ -29,10 +33,14 @@ function VykresliPolicka() {
     let cell;
     for (let r = 0; r < 20; r++) {
         for (let c = 0; c < 20; c++) {
-            cell = mrizka[r][c];
+            cell = mrizka[r][c].element;
             cell.style.gridRow = `${r+1} / ${r+2}`;
             cell.style.gridColumn = `${c+1} / ${c+2}`;
             mainGrid.append(cell);
         } 
     }
+}
+
+function cellClick() {
+
 }
