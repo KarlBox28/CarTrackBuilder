@@ -1,6 +1,7 @@
 //pole ŘÁDKŮ a v řádcích prvky
 let mrizka = [];
 let selectedTexture = "grass";
+let selectedTextureType = "terrain"
 
 IncializujPaletu();
 PripravMrizku();
@@ -16,8 +17,14 @@ function PripravMrizku() {
     for (let i = 0; i < 20; i++) {
         for (let j = 0; j < 20; j++) {
             let newEl = document.createElement("div");
+            let terrainEl = document.createElement("div");
+            terrainEl.classList.add("terrain");
+            terrainEl.classList.add("grass");
+            let trackEl = document.createElement("div");
+            trackEl.classList.add("track");
+            newEl.append(terrainEl);
+            newEl.append(trackEl);
             newEl.classList.add("cell");
-            newEl.classList.add("grass");
             /*
             let txt = document.createElement("span");
             txt.innerHTML = `I'm on line ${i+1}, column ${j+1}`
@@ -55,34 +62,78 @@ function IncializujPaletu() {
     paleta.forEach(element => {
         element.addEventListener("click", () => {
             selectedTexture = element.dataset.texture;
-            console.log("Vybráno: " + selectedTexture);
+            selectedTextureType = element.dataset.texture_type;
+            console.log("Vybráno: " + selectedTexture+ " " + selectedTextureType);
         });
     });
 }
 
 function cellClick(cellObj) {
     //console.log(`Clicked on line ${cellObj.row}, column ${cellObj.column}`);
+    const terrainEl = cellObj.element.querySelector(".terrain");
+    const trackEl = cellObj.element.querySelector(".track");
+    
+    if(selectedTextureType === "terrain") {
+        terrainEl.className = "terrain";
+        terrainEl.classList.add(selectedTexture);
+        cellObj.texture = selectedTexture;
+    }
+    else {
+        if(selectedTexture != cellObj.texture){
+            //zmenit
+            trackEl.className = "track";
+            if(selectedTexture === "none") {return;}
+            trackEl.classList.add(addDefaultOrientation(selectedTexture));
+            cellObj.texture = selectedTexture;
+            cellObj.texture_variant = addDefaultOrientation(selectedTexture);
+        } else {
+            //stejna - otocit
+            trackEl.className = "track"
+            trackEl.classList.add(rotateTexture(cellObj.texture_variant))
+            cellObj.texture = selectedTexture;
+            cellObj.texture_variant = rotateTexture(cellObj.texture_variant);
+        }
+    }
+    
 
-    cellObj.element.className = "cell";
-    cellObj.element.classList.add(selectedTexture);
+}
 
-    /*
-    switch (cellObj.texture) {
-        case "grass":
-            cellObj.element.classList.remove("grass");
-            cellObj.element.classList.add("road");
-            cellObj.texture = "road";
-            break;
-        case "road":
-            cellObj.element.classList.remove("road");
-            cellObj.element.classList.add("water");
-            cellObj.texture = "water";
-            break;
-        case "water":
-            cellObj.element.classList.remove("water");
-            cellObj.element.classList.add("grass");
-            cellObj.texture = "grass";
-            break;
-    }*/
+function addDefaultOrientation(texture) {
+    switch(texture) {
+        case "straight":
+            return "straight-LR"
+        case "turn":
+            return "turn-RD"
+        case "junction-3":
+            return "junction-3-U"
+        case "junction-4":
+            return "junction-4"
+    }
+}
 
-} 
+function rotateTexture(texture) {
+    switch(texture) {
+        case "straight-LR":
+            return "straight-UD";
+        case "straight-UD":
+            return "straight-LR";
+        case "turn-RD":
+            return "turn-LD";
+        case "turn-LD":
+            return "turn-LU";
+        case "turn-LU":
+            return "turn-RU";
+        case "turn-RU":
+            return "turn-RD";
+        case "junction-3-U":
+            return "junction-3-R";
+        case "junction-3-R":
+            return "junction-3-D";
+        case "junction-3-D":
+            return "junction-3-L";
+        case "junction-3-L":
+            return "junction-3-U";
+        case "junction-4":
+            return "junction-4";
+    }
+}
