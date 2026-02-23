@@ -24,16 +24,16 @@
 .cell {
     border: 1px grey solid;
     position: relative;
-    width: 50px;
-    height: 50px;
+    width: 100%;
+    height: 100%;
 }
 
 .cell > div {
   position: absolute;
   top: 0;
   left: 0;
-  width: 50px;
-  height: 50px;
+  width: 100%;
+  height: 100%;
 }
 
 .terrain { 
@@ -47,9 +47,6 @@
     background-position: center;
  }
 
-.terrain.road {
-    background-color: darkgrey;
-}
 .terrain.grass {
     background-color: greenyellow;
 }
@@ -72,7 +69,7 @@
 .track.straight-UD { background-image: url('sprites/straight-UD.png'); }
 
 /* Turns */
-.track.turn-L-D { background-image: url('sprites/turn-L-D.png'); }
-.track.turn-L-U { background-image: url('sprites/turn-L-U.png'); }
-.track.turn-R-D { background-image: url('sprites/turn-R-D.png'); }
-.track.turn-R-U { background-image: url('sprites/turn-R-U.png'); }
+.track.turn-LD { background-image: url('sprites/turn-LD.png'); }
+.track.turn-LU { background-image: url('sprites/turn-LU.png'); }
+.track.turn-RD { background-image: url('sprites/turn-RD.png'); }
+.track.turn-RU { background-image: url('sprites/turn-RU.png'); }
