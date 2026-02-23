@@ -1,6 +1,6 @@
 //pole ŘÁDKŮ a v řádcích prvky
 let mrizka = [];
-
+let selectedTexture = "grass";
 
 PripravMrizku();
 console.log(mrizka);
@@ -46,6 +46,11 @@ function VykresliPolicka() {
             mainGrid.append(cell);
         } 
     }
+}
+
+function IncializujPaletu() {
+    let paleta = document.querySelectorAll("#main-header ul li");
+    
 }
 
 function cellClick(cellObj) {
