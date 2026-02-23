@@ -16,12 +16,13 @@ function PripravMrizku() {
         for (let j = 0; j < 20; j++) {
             let newEl = document.createElement("div");
             newEl.classList.add("cell");
+            newEl.classList.add("grass");
             let txt = document.createElement("span");
             txt.innerHTML = `I'm on line ${i+1}, column ${j+1}`
             newEl.append(txt);
             mrizka[i][j] = {
                 element: newEl,
-                texture: "none",
+                texture: "grass",
                 texture_variant: "none",
                 row: i+1,
                 column: j+1
@@ -48,5 +49,23 @@ function VykresliPolicka() {
 }
 
 function cellClick(cellObj) {
-    console.log(`Clicked on line ${cellObj.row}, column ${cellObj.column}`)
+    //console.log(`Clicked on line ${cellObj.row}, column ${cellObj.column}`);
+    switch (cellObj.texture) {
+        case "grass":
+            cellObj.element.classList.remove("grass");
+            cellObj.element.classList.add("road");
+            cellObj.texture = "road";
+            break;
+        case "road":
+            cellObj.element.classList.remove("road");
+            cellObj.element.classList.add("water");
+            cellObj.texture = "water";
+            break;
+        case "water":
+            cellObj.element.classList.remove("water");
+            cellObj.element.classList.add("grass");
+            cellObj.texture = "grass";
+            break;
+    }
+
 } 
