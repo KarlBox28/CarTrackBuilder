@@ -50,7 +50,12 @@ function VykresliPolicka() {
 
 function IncializujPaletu() {
     let paleta = document.querySelectorAll("#main-header ul li");
-    
+    paleta.addEventListener("click", (e) => {
+    if (e.target.dataset.texture) {
+        selectedTexture = e.target.dataset.texture;
+        console.log("Vybraný nástroj:", selectedTexture);
+    }
+});
 }
 
 function cellClick(cellObj) {
