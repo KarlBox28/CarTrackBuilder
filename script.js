@@ -22,8 +22,14 @@ function PripravMrizku() {
             mrizka[i][j] = {
                 element: newEl,
                 texture: "none",
-                texture_variant: "none"
+                texture_variant: "none",
+                row: i+1,
+                column: j+1
             };
+
+            newEl.addEventListener("click", () => {
+                cellClick(mrizka[i][j]);
+            })
         } 
     }
 }
@@ -41,6 +47,6 @@ function VykresliPolicka() {
     }
 }
 
-function cellClick() {
-
-}
+function cellClick(cellObj) {
+    console.log(`Clicked on line ${cellObj.row}, column ${cellObj.column}`)
+} 
