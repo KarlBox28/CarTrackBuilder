@@ -18,9 +18,10 @@ function PripravMrizku() {
             let newEl = document.createElement("div");
             newEl.classList.add("cell");
             newEl.classList.add("grass");
+            /*
             let txt = document.createElement("span");
             txt.innerHTML = `I'm on line ${i+1}, column ${j+1}`
-            newEl.append(txt);
+            newEl.append(txt); */
             mrizka[i][j] = {
                 element: newEl,
                 texture: "grass",
