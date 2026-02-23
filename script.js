@@ -61,6 +61,11 @@ function IncializujPaletu() {
 
 function cellClick(cellObj) {
     //console.log(`Clicked on line ${cellObj.row}, column ${cellObj.column}`);
+
+    cellObj.element.className = "cell";
+    cellObj.element.classList.add(selectedTexture);
+
+    /*
     switch (cellObj.texture) {
         case "grass":
             cellObj.element.classList.remove("grass");
@@ -77,6 +82,6 @@ function cellClick(cellObj) {
             cellObj.element.classList.add("grass");
             cellObj.texture = "grass";
             break;
-    }
+    }*/
 
 } 
