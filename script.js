@@ -82,6 +82,7 @@ function cellClick(cellObj) {
         if(selectedTexture != cellObj.texture){
             //zmenit
             trackEl.className = "track";
+            if(selectedTexture === "none") {return;}
             trackEl.classList.add(addDefaultOrientation(selectedTexture));
             cellObj.texture = selectedTexture;
             cellObj.texture_variant = addDefaultOrientation(selectedTexture);
