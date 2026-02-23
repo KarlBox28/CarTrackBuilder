@@ -11,3 +11,13 @@
     background-color: rgba(255,0,0,0.3);
     border: 1px green solid;
 }
+
+.road {
+    background-color: darkgrey;
+}
+.grass {
+    background-color: greenyellow;
+}
+.water {
+    background-color: aqua;
+}
