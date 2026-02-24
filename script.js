@@ -5,17 +5,23 @@ let selectedTextureType = "terrain"
 
 RozjedemTo();
 
+const dkkd = document.getElementById("editor-btn-save");
+dkkd.addEventListener("click", ulozMapu);
+
+const bbb = document.getElementById("editor-btn-load")
+bbb.addEventListener("click", nactiMapu);
+
 function RozjedemTo() {
     const mainMenu = document.getElementById("main-menu");
     const editor = document.getElementById("main-grid");
-    const editorHeader = document.getElementById("main-header");
+    const header = document.querySelector("header");
     const loadPanel = document.getElementById("load-panel");
     const saveList = document.getElementById("save-list");
 
     document.getElementById("btn-new").addEventListener("click", () => {
         mainMenu.classList.add("hidden");
         editor.classList.remove("hidden");
-        editorHeader.classList.remove("hidden")
+        header.classList.remove("hidden")
         IncializujPaletu();
         PripravMrizku();
         console.log(mrizka);
@@ -206,5 +212,48 @@ function nactiMapu() {
         mrizka[index] = [];
     }
 
+    for (let i = 0; i < 20; i++) {
+        for (let j = 0; j < 20; j++) {
+            let newEl = document.createElement("div");
+            let terrainEl = document.createElement("div");
+            terrainEl.classList.add("terrain");
+            let trackEl = document.createElement("div");
+            trackEl.classList.add("track");
+            let savedCell = data[i][j];
+            terrainEl.classList.add(savedCell.texture);
+
+            if(savedCell.track_texture != "none") {
+                trackEl.classList.add(savedCell.track_variant);
+            }
+
+
+            newEl.append(terrainEl);
+            newEl.append(trackEl);
+            newEl.classList.add("cell");
+            
+            mrizka[i][j] = {
+                element: newEl,
+                texture: savedCell.texture,
+                track_texture: savedCell.track_texture,
+                track_variant: savedCell.track_variant,
+                row: i+1,
+                column: j+1
+            };
+
+            newEl.addEventListener("click", () => {
+                cellClick(mrizka[i][j]);
+            })
+        } 
+    }
+    const mainMenu = document.getElementById("main-menu");
+    const editor = document.getElementById("main-grid");
+    const editorHeader = document.getElementById("main-header");
+
+    mainMenu.classList.add("hidden");
+    editor.classList.remove("hidden");
+    editorHeader.classList.remove("hidden")
+    IncializujPaletu();
+    console.log(mrizka);
+    VykresliPolicka();
 
 }
