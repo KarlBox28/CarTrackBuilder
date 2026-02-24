@@ -3,10 +3,38 @@ let mrizka = [];
 let selectedTexture = "grass";
 let selectedTextureType = "terrain"
 
-IncializujPaletu();
-PripravMrizku();
-console.log(mrizka);
-VykresliPolicka();
+RozjedemTo();
+
+function RozjedemTo() {
+    const mainMenu = document.getElementById("main-menu");
+    const editor = document.getElementById("main-grid");
+    const editorHeader = document.getElementById("main-header");
+    const loadPanel = document.getElementById("load-panel");
+    const saveList = document.getElementById("save-list");
+
+    document.getElementById("btn-new").addEventListener("click", () => {
+        mainMenu.classList.add("hidden");
+        editor.classList.remove("hidden");
+        editorHeader.classList.remove("hidden")
+        IncializujPaletu();
+        PripravMrizku();
+        console.log(mrizka);
+        VykresliPolicka();
+    });
+
+    document.getElementById("btn-load").addEventListener("click", () => {
+        loadPanel.classList.remove("hidden");
+        vypisUlozeneMapy();
+    });
+
+    document.getElementById("btn-back").addEventListener("click", () => {
+        loadPanel.classList.add("hidden");
+    });
+
+    document.getElementById("btn-exit").addEventListener("click", () => {
+        alert("Aplikace ukončena 🙂");
+    });
+}
 
 function PripravMrizku() {
     mrizka = [];
