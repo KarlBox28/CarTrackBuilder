@@ -5,14 +5,6 @@ let selectedTextureType = "terrain"
 
 InicializujHlavniMenu();
 
-const dkkd = document.getElementById("editor-btn-save");
-dkkd.addEventListener("click", ulozMapu);
-
-const bbb = document.getElementById("editor-btn-load")
-bbb.addEventListener("click", () => {
-    const jmeno = prompt("Zadej název mapy:");
-    nactiMapu(jmeno);
-});
 
 function InicializujHlavniMenu() {
     const mainMenu = document.getElementById("main-menu");
@@ -41,9 +33,6 @@ function InicializujHlavniMenu() {
         loadPanel.classList.add("hidden");
     });
 
-    document.getElementById("btn-exit").addEventListener("click", () => {
-        alert("Aplikace ukončena 🙂");
-    });
 }
 
 
@@ -108,6 +97,34 @@ function IncializujPaletu() {
             console.log("Vybráno: " + selectedTexture+ " " + selectedTextureType);
         });
     });
+
+    const btn_new = document.getElementById("editor-btn-new");
+    btn_new.addEventListener("click", () => {
+        PripravMrizku();
+        VykresliPolicka();
+    });
+
+    const btn_save = document.getElementById("editor-btn-save");
+    btn_save.addEventListener("click", ulozMapu);
+
+    const btn_load = document.getElementById("editor-btn-load")
+    btn_load.addEventListener("click", () => {
+        const jmeno = prompt("Zadej název mapy:");
+        nactiMapu(jmeno);
+    });
+
+    const btn_end = document.getElementById("editor-btn-end");
+    btn_end.addEventListener("click", () => {
+        const mainMenu = document.getElementById("main-menu");
+        const editor = document.getElementById("main-grid");
+        const header = document.querySelector("header");
+
+        mainMenu.classList.remove("hidden");
+        editor.classList.add("hidden");
+        header.classList.add("hidden");
+    });
+
+
     const header = document.querySelector("header");
     header.classList.remove("hidden");
 }
