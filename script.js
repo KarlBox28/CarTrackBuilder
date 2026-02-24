@@ -3,15 +3,18 @@ let mrizka = [];
 let selectedTexture = "grass";
 let selectedTextureType = "terrain"
 
-RozjedemTo();
+InicializujHlavniMenu();
 
 const dkkd = document.getElementById("editor-btn-save");
 dkkd.addEventListener("click", ulozMapu);
 
 const bbb = document.getElementById("editor-btn-load")
-bbb.addEventListener("click", nactiMapu);
+bbb.addEventListener("click", () => {
+    const jmeno = prompt("Zadej název mapy:");
+    nactiMapu(jmeno);
+});
 
-function RozjedemTo() {
+function InicializujHlavniMenu() {
     const mainMenu = document.getElementById("main-menu");
     const editor = document.getElementById("main-grid");
     const header = document.querySelector("header");
@@ -19,6 +22,7 @@ function RozjedemTo() {
     const saveList = document.getElementById("save-list");
 
     document.getElementById("btn-new").addEventListener("click", () => {
+        //main start
         mainMenu.classList.add("hidden");
         editor.classList.remove("hidden");
         header.classList.remove("hidden")
@@ -30,7 +34,7 @@ function RozjedemTo() {
 
     document.getElementById("btn-load").addEventListener("click", () => {
         loadPanel.classList.remove("hidden");
-        vypisUlozeneMapy();
+        vypisUlozeneMapy(saveList);
     });
 
     document.getElementById("btn-back").addEventListener("click", () => {
@@ -41,6 +45,8 @@ function RozjedemTo() {
         alert("Aplikace ukončena 🙂");
     });
 }
+
+
 
 function PripravMrizku() {
     mrizka = [];
@@ -94,7 +100,7 @@ function VykresliPolicka() {
 }
 
 function IncializujPaletu() {
-    let paleta = document.querySelectorAll("#main-header ul li button");
+    let paleta = document.querySelectorAll("#palette ul li button");
     paleta.forEach(element => {
         element.addEventListener("click", () => {
             selectedTexture = element.dataset.texture;
@@ -102,6 +108,8 @@ function IncializujPaletu() {
             console.log("Vybráno: " + selectedTexture+ " " + selectedTextureType);
         });
     });
+    const header = document.querySelector("header");
+    header.classList.remove("hidden");
 }
 
 function cellClick(cellObj) {
@@ -193,8 +201,7 @@ function ulozMapu() {
     console.log(data);
 }
 
-function nactiMapu() {
-    const jmeno = prompt("Zadej název mapy:");
+function nactiMapu(jmeno) {
 
     if (!jmeno) return;
 
@@ -256,4 +263,35 @@ function nactiMapu() {
     console.log(mrizka);
     VykresliPolicka();
 
+}
+
+function vypisUlozeneMapy(element) {
+    let jmeno = "";
+    let count = 0;
+
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+
+        if (key.startsWith("map_")) {
+            count++;
+        }
+    }
+
+    for (let i = 0; i < count; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith("map_")) {
+            jmeno = key.replace("map_", "");
+        }
+        let newEl = document.createElement("div");
+        let spanEl = document.createElement("span");
+        spanEl.innerHTML = jmeno;
+        let btnEl = document.createElement("button");
+        btnEl.innerHTML = "Načíst";
+        btnEl.addEventListener("click", () => {
+            nactiMapu(jmeno);
+        });
+        newEl.append(spanEl);
+        newEl.append(btnEl);
+        element.append(newEl);
+    }
 }
