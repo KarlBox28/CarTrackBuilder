@@ -60,7 +60,8 @@ function PripravMrizku() {
             mrizka[i][j] = {
                 element: newEl,
                 texture: "grass",
-                texture_variant: "none",
+                track_texture: "none",
+                track_variant: "none",
                 row: i+1,
                 column: j+1
             };
@@ -74,6 +75,7 @@ function PripravMrizku() {
 
 function VykresliPolicka() {
     let mainGrid = document.getElementById("main-grid");
+    mainGrid.innerHTML = "";
     let cell;
     for (let r = 0; r < 20; r++) {
         for (let c = 0; c < 20; c++) {
@@ -107,22 +109,22 @@ function cellClick(cellObj) {
         cellObj.texture = selectedTexture;
     }
     else {
-        if(selectedTexture != cellObj.texture){
+        if(selectedTexture != cellObj.track_texture){
             //zmenit
             trackEl.className = "track";
             if(selectedTexture === "none") {return;}
             trackEl.classList.add(addDefaultOrientation(selectedTexture));
-            cellObj.texture = selectedTexture;
-            cellObj.texture_variant = addDefaultOrientation(selectedTexture);
+            cellObj.track_texture = selectedTexture;
+            cellObj.track_variant = addDefaultOrientation(selectedTexture);
         } else {
             //stejna - otocit
             trackEl.className = "track"
-            trackEl.classList.add(rotateTexture(cellObj.texture_variant))
-            cellObj.texture = selectedTexture;
-            cellObj.texture_variant = rotateTexture(cellObj.texture_variant);
+            trackEl.classList.add(rotateTexture(cellObj.track_variant))
+            cellObj.track_texture = selectedTexture;
+            cellObj.track_variant = rotateTexture(cellObj.track_variant);
         }
     }
-    
+    //console.log(mrizka);
 
 }
 
@@ -164,4 +166,45 @@ function rotateTexture(texture) {
         case "junction-4":
             return "junction-4";
     }
+}
+
+function ulozMapu() {
+    const jmeno = prompt("Zadej název mapy:");
+
+    if (!jmeno) return;
+
+    const data = mrizka.map(radek =>
+        radek.map(cell => ({
+            texture: cell.texture,
+            track_texture: cell.track_texture,
+            track_variant: cell.track_variant
+        }))
+    );
+
+    localStorage.setItem("map_" + jmeno, JSON.stringify(data));
+
+    alert("Mapa uložena!");
+    console.log(data);
+}
+
+function nactiMapu() {
+    const jmeno = prompt("Zadej název mapy:");
+
+    if (!jmeno) return;
+
+    const ulozena = localStorage.getItem("map_" + jmeno);
+
+    if (!ulozena) {
+        alert("Mapa neexistuje");
+        return;
+    }
+
+    const data = JSON.parse(ulozena);
+
+    mrizka = [];
+    for (let index = 0; index < 20; index++) {
+        mrizka[index] = [];
+    }
+
+
 }
