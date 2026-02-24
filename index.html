@@ -7,15 +7,16 @@
     <title>Car Track Builder</title>
 </head>
 <body>
-    <header>
-        
-        <div id="main-header" class="hidden">
+    <header class="hidden">
+        <div>
             <ul>
-                <li><button>Nový</button></li>
-                <li><button>Uložit</button></li>
-                <li><button>Načíst</button></li>
-                <li><button>Konec</button></li>
+                <li><button id="editor-btn-new">Nový</button></li>
+                <li><button id="editor-btn-save">Uložit</button></li>
+                <li><button id="editor-btn-load">Načíst</button></li>
+                <li><button id="editor-btn-end">Konec</button></li>
             </ul>
+        </div>
+        <div id="palette">
             <ul>
                 <li><button data-texture="straight" data-texture_type="track">Silnice</button></li>
                 <li><button data-texture="turn" data-texture_type="track">Zatáčka</button></li>
@@ -34,12 +35,12 @@
 
             <button id="btn-new">Start – Nová trať</button>
             <button id="btn-load">Načíst</button>
-            <button id="btn-exit">Konec</button>
 
             <div id="load-panel" class="hidden">
-            <h2>Uložené tratě</h2>
-            <div id="save-list"></div>
-                <button id="btn-back">Zpět</button>
+                <h2>Uložené tratě</h2>
+                <div id="save-list"></div>
+                    <button id="btn-back">Zpět</button>
+                </div>
             </div>
         </div>
         <div id="main-grid" class="hidden">
