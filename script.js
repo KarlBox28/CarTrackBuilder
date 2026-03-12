@@ -1,7 +1,7 @@
 //pole ŘÁDKŮ a v řádcích prvky
 let mrizka = [];
 let selectedTexture = "grass";
-let selectedTextureType = "terrain"
+let selectedTextureType = "terrain";
 
 InicializujHlavniMenu();
 
@@ -116,7 +116,7 @@ function IncializujPaletu() {
         const saveList = document.getElementById("editor-load-list");
         const editorLoadPanel = document.getElementById("editor-load-panel");
         const backButton = document.getElementById("editor-load-panel-btn-back");
-        console.log(backButton);
+        //console.log(backButton);
         backButton.addEventListener("click", () => {
             editorLoadPanel.classList.add("hidden")
         });
@@ -229,12 +229,14 @@ function ulozMapu() {
     localStorage.setItem("map_" + jmeno, JSON.stringify(data));
 
     alert("Mapa uložena!");
-    console.log(data);
+    console.log("saved: " + data);
 }
 
 function nactiMapu(jmeno) {
 
     if (!jmeno) return;
+
+    console.log("nacitam: " + jmeno)
 
     const ulozena = localStorage.getItem("map_" + jmeno);
 
@@ -284,8 +286,6 @@ function nactiMapu(jmeno) {
         } 
     }
 
-    console.log(mrizka);
-
     const mainMenu = document.getElementById("main-menu");
     const editor = document.getElementById("main-grid");
     const editorHeader = document.querySelector("header");
@@ -294,20 +294,19 @@ function nactiMapu(jmeno) {
     editor.classList.remove("hidden");
     editorHeader.classList.remove("hidden")
     IncializujPaletu();
-    console.log(mrizka);
+    //console.log("nactena: " + mrizka);
     VykresliPolicka();
 
 }
 
 function vypisUlozeneMapy(element) {
-    let jmeno = "";
     element.innerHTML = "";
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
-        console.log(key);
+        console.log("klic " + key);
         if (key.startsWith("map_")) {
-            console.log(key);
-            jmeno = key.replace("map_", "");
+            console.log("replacnute jmeno " + key.replace("map_", ""));
+            let jmeno = key.replace("map_", "");
             console.log(jmeno);
             let newEl = document.createElement("div");
             let spanEl = document.createElement("span");
@@ -315,6 +314,7 @@ function vypisUlozeneMapy(element) {
             let btnEl = document.createElement("button");
             btnEl.innerHTML = "Načíst";
             btnEl.addEventListener("click", () => {
+                console.log("pisu do butn" + jmeno);
                 nactiMapu(jmeno);
             });
             newEl.append(spanEl);

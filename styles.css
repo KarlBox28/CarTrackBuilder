@@ -151,3 +151,13 @@ button:hover {
 header div ul {
   padding: 0;
 }
+footer {
+    margin-top: 20px;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    background: #f9f9f9;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
