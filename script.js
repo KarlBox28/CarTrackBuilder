@@ -109,8 +109,19 @@ function IncializujPaletu() {
 
     const btn_load = document.getElementById("editor-btn-load")
     btn_load.addEventListener("click", () => {
+        /*
         const jmeno = prompt("Zadej název mapy:");
-        nactiMapu(jmeno);
+        nactiMapu("map_" + jmeno);
+        */
+        const saveList = document.getElementById("editor-load-list");
+        const editorLoadPanel = document.getElementById("editor-load-panel");
+        const backButton = document.getElementById("editor-load-panel-btn-back");
+        console.log(backButton);
+        backButton.addEventListener("click", () => {
+            editorLoadPanel.classList.add("hidden")
+        });
+        editorLoadPanel.classList.remove("hidden");
+        vypisUlozeneMapy(saveList);
     });
 
     const btn_end = document.getElementById("editor-btn-end");
@@ -118,8 +129,11 @@ function IncializujPaletu() {
         const mainMenu = document.getElementById("main-menu");
         const editor = document.getElementById("main-grid");
         const header = document.querySelector("header");
+        const loadPanel = document.getElementById("load-panel")
 
         mainMenu.classList.remove("hidden");
+
+        loadPanel.classList.add("hidden");
         editor.classList.add("hidden");
         header.classList.add("hidden");
     });
@@ -269,9 +283,12 @@ function nactiMapu(jmeno) {
             })
         } 
     }
+
+    console.log(mrizka);
+
     const mainMenu = document.getElementById("main-menu");
     const editor = document.getElementById("main-grid");
-    const editorHeader = document.getElementById("main-header");
+    const editorHeader = document.querySelector("header");
 
     mainMenu.classList.add("hidden");
     editor.classList.remove("hidden");
@@ -284,31 +301,25 @@ function nactiMapu(jmeno) {
 
 function vypisUlozeneMapy(element) {
     let jmeno = "";
-    let count = 0;
-
+    element.innerHTML = "";
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
-
+        console.log(key);
         if (key.startsWith("map_")) {
-            count++;
-        }
-    }
-
-    for (let i = 0; i < count; i++) {
-        const key = localStorage.key(i);
-        if (key.startsWith("map_")) {
+            console.log(key);
             jmeno = key.replace("map_", "");
+            console.log(jmeno);
+            let newEl = document.createElement("div");
+            let spanEl = document.createElement("span");
+            spanEl.innerHTML = jmeno;
+            let btnEl = document.createElement("button");
+            btnEl.innerHTML = "Načíst";
+            btnEl.addEventListener("click", () => {
+                nactiMapu(jmeno);
+            });
+            newEl.append(spanEl);
+            newEl.append(btnEl);
+            element.append(newEl);
         }
-        let newEl = document.createElement("div");
-        let spanEl = document.createElement("span");
-        spanEl.innerHTML = jmeno;
-        let btnEl = document.createElement("button");
-        btnEl.innerHTML = "Načíst";
-        btnEl.addEventListener("click", () => {
-            nactiMapu(jmeno);
-        });
-        newEl.append(spanEl);
-        newEl.append(btnEl);
-        element.append(newEl);
     }
 }
