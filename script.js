@@ -305,16 +305,13 @@ function vypisUlozeneMapy(element) {
         const key = localStorage.key(i);
         console.log("klic " + key);
         if (key.startsWith("map_")) {
-            console.log("replacnute jmeno " + key.replace("map_", ""));
             let jmeno = key.replace("map_", "");
-            console.log(jmeno);
             let newEl = document.createElement("div");
             let spanEl = document.createElement("span");
             spanEl.innerHTML = jmeno;
             let btnEl = document.createElement("button");
             btnEl.innerHTML = "Načíst";
             btnEl.addEventListener("click", () => {
-                console.log("pisu do butn" + jmeno);
                 nactiMapu(jmeno);
             });
             newEl.append(spanEl);
